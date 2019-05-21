@@ -1,0 +1,39 @@
+{
+  "name": "myApp",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@rails/webpacker": "^4.0.2",
+    "autoprefixer-stylus": "^0.14.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "concurrently": "^4.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1",
+    "react_ujs": "^2.5.0",
+    "stylus": "^0.54.5"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "watch": "concurrently --names \"webpack, stylus\" --prefix name \"yarn run start\" \"yarn run styles:watch\"",
+    "styles": "stylus -u autoprefixer-stylus ./app/javascript/css/style.styl -o ./app/javascript/css/style.css",
+    "styles:watch": "stylus -u autoprefixer-stylus -w ./app/javascript/css/style.styl -o ./app/javascript/css/style.css",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "version": "1.0.0",
+  "description": "test forms",
+  "main": "index.js",
+  "repository": "git@github.com:rdzcn/simple-form.git",
+  "author": "ao",
+  "license": "MIT"
+}
