@@ -84,8 +84,6 @@ config.generators do |generate|
     end
 RUBY
 
-environment generators
-
 ########################################
 # AFTER BUNDLE
 ########################################
