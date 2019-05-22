@@ -100,7 +100,7 @@ after_bundle do
 	########################################
 	run 'rm -rf app/javascript'
 	run 'rm -rf vendor'
-	run 'curl -L https://github.com/rdzcn/my-templates/blob/master/app-javascript.zip > javascript.zip'
+	run 'curl -L https://github.com/rdzcn/my-templates/blob/master/app-javascript.zip?raw=true > javascript.zip'
 	run 'unzip javascript.zip -d app && rm javascript.zip && mv app/app-javascript app/javascript'
   
 	run 'rm package.json'
