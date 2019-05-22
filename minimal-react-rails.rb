@@ -92,7 +92,8 @@ after_bundle do
   ########################################
   rails_command 'db:drop db:create db:migrate'
   rails_command 'rails generate react:install'
-  generate(:controller, 'pages', 'home', '--skip-routes', '--no-test-framework')
+  rails_command 'rails generate controller pages home --skip-routes --no-test-framework'
+ 
 
 	# Webpack Javascript Setup
 	########################################
