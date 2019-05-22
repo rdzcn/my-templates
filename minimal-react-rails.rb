@@ -104,7 +104,7 @@ after_bundle do
 	run 'unzip javascript.zip -d app && rm javascript.zip && mv app/app-javascript app/javascript'
   
 	run 'rm package.json'
-  	run 'curl -L https://raw.githubusercontent.com/rdzcn/my-templates/master/package.json'
+  	run 'curl -L https://raw.githubusercontent.com/rdzcn/my-templates/master/package.json > package.json'
 	run 'yarn install'
 	
 	# Routes
