@@ -44,13 +44,6 @@ file 'Procfile', <<-YAML
 web: bundle exec puma -C config/puma.rb
 YAML
 
-# Webpack Javascript Setup
-########################################
-run 'rm -rf app/javascript'
-run 'rm -rf vendor'
-run 'curl -L https://github.com/rdzcn/my-templates/blob/master/app-javascript.zip > javascript.zip'
-run 'unzip javascript.zip -d app && rm javascript.zip && mv app/app-javascript app/javascript'
-
 # Dev environment
 ########################################
 gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'config.assets.debug = false')
@@ -104,7 +97,7 @@ after_bundle do
 	run 'unzip javascript.zip -d app && rm javascript.zip && mv app/app-javascript app/javascript'
   
 	run 'rm package.json'
-  	run 'curl -L https://raw.githubusercontent.com/rdzcn/my-templates/master/package.json > package.json'
+  run 'curl -L https://raw.githubusercontent.com/rdzcn/my-templates/master/package.json > package.json'
 	run 'yarn install'
 	
 	# Routes
@@ -115,22 +108,80 @@ after_bundle do
   ########################################
   run 'rm .gitignore'
   file '.gitignore', <<-TXT
-    .bundle
-    log/*.log
-    tmp/**/*
-    tmp/*
-    !log/.keep
-    !tmp/.keep
-    *.swp
-    .DS_Store
-    public/assets
-    public/packs
-    public/packs-test
-    node_modules
-    yarn-error.log
-    .byebug_history
-    .env*
+  *.rbc
+	capybara-*.html
+	.rspec
+	/db/*.sqlite3
+	/db/*.sqlite3-journal
+	/public/system
+	/coverage/
+	/spec/tmp
+	*.orig
+	rerun.txt
+	pickle-email-*.html
+
+	# Ignore all logfiles and tempfiles.
+	/log/*
+	/tmp/*
+	!/log/.keep
+	!/tmp/.keep
+
+	# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
+	config/initializers/secret_token.rb
+	config/master.key
+
+	# Only include if you have production secrets in this file, which is no longer a Rails default
+	# config/secrets.yml
+
+	# dotenv
+	# TODO Comment out this rule if environment variables can be committed
+	.env
+
+	## Environment normalization:
+	/.bundle
+	/vendor/bundle
+
+	# these should all be checked in to normalize the environment:
+	# Gemfile.lock, .ruby-version, .ruby-gemset
+
+	# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+	.rvmrc
+
+	# if using bower-rails ignore default bower_components path bower.json files
+	/vendor/assets/bower_components
+	*.bowerrc
+	bower.json
+
+	# Ignore pow environment settings
+	.powenv
+
+	# Ignore Byebug command history file.
+	.byebug_history
+
+	# Ignore node_modules
+	node_modules/
+
+	# Ignore precompiled javascript packs
+	/public/packs
+	/public/packs-test
+	/public/assets
+
+	# Ignore yarn files
+	/yarn-error.log
+	yarn-debug.log*
+	.yarn-integrity
+
+	# Ignore uploaded files in development
+	/storage/*
+	!/storage/.keep
   TXT
+
+	inject_into_file 'config/webpack/environment.js', before: 'module.exports' do
+	<<-JS
+	// Preventing Babel from transpiling NodeModules packages
+	environment.loaders.delete('nodeModules');
+	JS
+  end
 
   # Dotenv
   ########################################
@@ -143,7 +194,5 @@ after_bundle do
   # Git
   ########################################
   git :init
-  git add: '.'
-  git commit: "-m 'Initial commit with minimal template for React with Rails'"
 end
 
