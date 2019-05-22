@@ -93,7 +93,7 @@ after_bundle do
   # Generators: db + simple form + pages controller
   ########################################
   rails_command 'db:drop db:create db:migrate'
-  rails_command 'rails g react:install
+  rails_command 'rails generate react:install'
   generate(:controller, 'pages', 'home', '--skip-routes', '--no-test-framework')
 
 	# Webpack Javascript Setup
@@ -104,7 +104,7 @@ after_bundle do
 	run 'unzip javascript.zip -d app && rm javascript.zip && mv app/app-javascript app/javascript'
   
 	run 'rm package.json'
-  run 'curl -L https://github.com/rdzcn/my-templates/blob/master/package.json'
+  	run 'curl -L https://raw.githubusercontent.com/rdzcn/my-templates/master/package.json'
 	run 'yarn install'
 	
 	# Routes
