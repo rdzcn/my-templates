@@ -92,8 +92,8 @@ after_bundle do
   # Generators: db + simple form + pages controller
   ########################################
   rails_command 'db:drop db:create db:migrate'
-  rails_command 'rails generate react:install'
-  rails_command 'rails generate controller pages home --skip-routes --no-test-framework'
+  rails_command 'generate react:install'
+  rails_command 'generate controller pages home --skip-routes --no-test-framework'
  
 
 	# Webpack Javascript Setup
